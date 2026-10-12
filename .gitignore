@@ -156,3 +156,6 @@ postgres/data/*
 
 
 core/media/*
+
+
+replacements.txt
