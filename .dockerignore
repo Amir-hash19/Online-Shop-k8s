@@ -1,0 +1,8 @@
+.git
+venv/
+__pycache__/
+*.py[cod]
+.env
+envs/
+postgres/data/
+*.rar

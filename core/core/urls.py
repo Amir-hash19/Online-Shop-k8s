@@ -20,6 +20,29 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+
+from django.http import JsonResponse
+from django.urls import path
+from django.db import connection
+
+
+
+#kubernetes check point 
+def health_live(request):
+    """Check whether Django is responding."""
+    return JsonResponse({"status": "alive"}, status=200)
+
+
+def health_ready(request):
+    """Check whether Django can serve requests."""
+    try:
+        connection.ensure_connection()
+        return JsonResponse({"status": "ready"}, status=200)
+    except Exception:
+        return JsonResponse({"status": "not_ready"}, status=503)
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('website.urls')),
@@ -30,6 +53,11 @@ urlpatterns = [
     path('order/', include('order.urls')),
     path('payment/', include('payment.urls')),
     path('review/', include('review.urls')),
+
+
+
+    path("health/live/", health_live, name="health-live"),
+    path("health/ready/", health_ready, name="health-ready"),
     
 ]
 
@@ -48,3 +76,10 @@ handler400 = "core.error_views.error_400"  # bad_request
 handler403 = "core.error_views.error_403"  # permission_denied
 handler404 = "core.error_views.error_404"  # page_not_found
 handler500 = "core.error_views.error_500"  # server_error
+
+
+
+
+
+
+

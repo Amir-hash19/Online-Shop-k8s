@@ -159,3 +159,34 @@ core/media/*
 
 
 replacements.txt
+
+
+
+
+
+```dockerignore
+.git
+.gitignore
+
+.venv
+venv
+__pycache__
+*.py[cod]
+
+.env
+.env.*
+!.env.example
+
+/postgres/data
+**/__pycache__/
+
+*.rar
+replacements.txt
+
+docs/
+README.md
+LICENSE
+docker-compose.yml
+
+dockerfiles/
+```
